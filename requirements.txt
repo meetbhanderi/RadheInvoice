@@ -1,0 +1,5 @@
+Django==3.0.7
+num2words==0.5.10
+psycopg2==2.8.5
+xhtml2pdf==0.2.4
+num2words==0.5.10

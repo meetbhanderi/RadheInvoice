@@ -1,0 +1,52 @@
+{% extends "Base/base.html" %}
+{% load static %}
+{% block title %}
+  Invoice List
+{% endblock title %}
+
+{% block body %}
+<div class="container-fluid mt-4">
+
+    <h1 style="color: #003f88">Order List</h1>
+    <hr class="mt-4 m5-3" />
+    <div class="table-responsive-xl mt-5">
+        <table class="table table-bordered" id="invoiceList">
+            <thead>
+            <tr>
+                <th scope="col">No</th>
+                <th scope="col">Customer Name</th>
+                <th scope="col">Phone</th>
+                <th scope="col">Email</th>
+                <th scope="col">Amount</th>
+                <th class="fit" scope="col">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for data in OrderList %}
+            <tr>
+                <td class="fit">{{ data.Order_Id }}</td>
+                <td >{{ data.FK_Customer_Id.FirstName }} {{ data.FK_Customer_Id.MiddleName }} {{ data.FK_Customer_Id.LastName }}</td>
+                <td>{{ data.FK_Customer_Id.Phone }}</td>
+                <td>{{ data.FK_Customer_Id.Email }}</td>
+                <td >{{ data.TotalAmount }}</td>
+                <td class="fit">
+                    <a href="{% url 'PrintOrder' Id=data.Order_Id %}" target="_blank"><img src="{% static 'SVG/print.svg' %}" height="30" width="30" /></a>
+                </td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock body %}
+
+{% block Scripts %}
+   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.css">
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.js"></script>
+    <script>
+        $(document).ready(function () {
+
+            $("#invoiceList").DataTable();
+        });
+    </script>
+{% endblock %}

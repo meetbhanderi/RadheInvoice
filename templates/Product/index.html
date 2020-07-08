@@ -1,0 +1,55 @@
+{% extends "Base/base.html" %}
+{% load static %}
+{% block title %}
+  Product List
+{% endblock title %}
+
+{% block body %}
+<div class="container-fluid mt-5">
+    <div class="d-flex justify-content-between mb-4">
+        <h1 style="color: #003f88">Products</h1>
+        <a href="/Product/Add" class="btn btn-lg btn-add" >
+            <img src="{% static "SVG/Add.svg" %}" height="35" width="35" class="add-svg" />
+        </a>
+    </div>
+    <hr/>
+
+    <div class="table-responsive mt-5">
+        <table id="projectList" class="table table-bordered">
+            <thead>
+                <tr>
+                    <td class="fit">Id</td>
+                    <td>Product Name</td>
+                    <td>Price (In Rupees)</td>
+                    <td class="fit">Action</td>
+                </tr>
+            </thead>
+            <tbody>
+                {% for data in products %}
+                    <tr>
+                        <td class="fit">{{ data.Id }}</td>
+                        <td>{{ data.ProductName }}</td>
+                        <td>&#8377; {{ data.UnitPrice }}</td>
+                        <td class="fit">
+                            <a href="{% url 'EditProduct' productId=data.Id %}" class="btn-edit btn">
+                                <img src="{% static "SVG/edit.svg" %}" height="25" width="25" />
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
+
+{% block Scripts %}
+   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.css">
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.js"></script>
+    <script>
+        $(document).ready(function () {
+
+            $("#projectList").DataTable();
+        });
+    </script>
+{% endblock %}
